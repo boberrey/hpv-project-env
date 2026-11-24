@@ -27,7 +27,7 @@ bowtie2-build -q g.fa g
 bowtie2 --no-unal -x g -U r.fq 2> /dev/null | samtools sort -o r.bam -
 samtools index r.bam
 python -c "import pysam; n = pysam.AlignmentFile('r.bam').mapped; assert n == 100, n"
-minimap2 -a g.fa r.fq 2> /dev/null | samtools view -c -F 4 - | grep -qx 100
+minimap2 -ax sr g.fa r.fq 2> /dev/null | samtools view -c -F 4 - | grep -qx 100
 mash sketch -o g g.fa > /dev/null 2>&1
 dustmasker -in g.fa -outfmt acclist > /dev/null
 

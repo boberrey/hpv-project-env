@@ -39,9 +39,12 @@ ENV PATH="${CONDA_ENV}/bin:${PATH}" \
     PYTHONNOUSERSITE=1 \
     PYTHONDONTWRITEBYTECODE=1
 
-# R packages, smoke tests and the R package lockfile
-COPY install_packages.R smoke_test.sh VERSION /opt/hpv-project-env/
+# R packages and the R package lockfile
+COPY install_packages.R VERSION /opt/hpv-project-env/
 RUN Rscript /opt/hpv-project-env/install_packages.R \
     && echo "options(repos = c(CRAN = '${CRAN_SNAPSHOT}'), BioC_mirror = '${BIOC_SNAPSHOT}', \
-BIOCONDUCTOR_CONFIG_FILE = '${BIOC_SNAPSHOT}/config.yaml')" >> "${R_HOME}/etc/Rprofile.site" \
-    && bash /opt/hpv-project-env/smoke_test.sh
+BIOCONDUCTOR_CONFIG_FILE = '${BIOC_SNAPSHOT}/config.yaml')" >> "${R_HOME}/etc/Rprofile.site"
+
+# Every tool and package works
+COPY smoke_test.sh /opt/hpv-project-env/
+RUN bash /opt/hpv-project-env/smoke_test.sh

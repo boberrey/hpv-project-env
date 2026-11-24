@@ -1,0 +1,25 @@
+# Python and command-line tools of the HPV project image. Exact versions; the solved list with builds
+# is written to /opt/hpv-project-env/conda.lock in the image (and committed as containers/hpv/conda.lock).
+name: hpv
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  # Python
+  - python=3.12.16
+  - numpy=2.5.5
+  - pandas=3.1.1
+  - scipy=1.18.1
+  - pysam=0.24.1
+  - biopython=1.88
+  # Read alignment and file handling
+  - bowtie2=2.5.5
+  - minimap2=2.31
+  - samtools=1.25
+  - htslib=1.25
+  - pigz=2.8
+  # Sequence similarity
+  - mash=2.3
+  - blast=2.17.0
+  # Public data (SRA)
+  - sra-tools=3.4.1
